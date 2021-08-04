@@ -18,14 +18,14 @@ router.get("/", function(req, res) {
 router.post('/new', function(req, res) {
   let sql = {
       query: `INSERT INTO d_collection_book(judul, pengarang, harga, stok) VALUES (?, ?, ?, ?)`,
-  }
-  let params = [
+      params: [
         req.body.judul,
         req.body.pengarang, 
         req.body.harga, 
         req.body.stok,
-    ]
-  db.query(sql.query, params, function(err, data, fields) {
+      ]
+  }
+  db.query(sql.query, sql.params, function(err, data, fields) {
     if (err) throw err;
     res.json({
       status: 200,
@@ -46,7 +46,7 @@ router.post('/update/:id', function(req, res) {
         ]
   }
 
-  db.query(sql.query, params, function(err, data, fields) {
+  db.query(sql.query, sql.params, function(err, data, fields) {
     if (err) throw err;
     res.json({
       status: 200,
@@ -65,7 +65,7 @@ router.delete('/delete/:id', function(req, res) {
     if (err) throw err;
     res.json({
       status: 200,
-      message: "New user updated successfully"
+      message: "User deleted successfully"
     })
   })
 });
